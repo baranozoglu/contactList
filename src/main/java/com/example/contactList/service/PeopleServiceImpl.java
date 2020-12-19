@@ -10,20 +10,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PeopleServiceImpl implements PeopleService {
     @Autowired
     private PeopleRepository peopleRepository;
 
+    @Transactional
     @Override
     public List<People> readCsv(String csvName) {
         List<People> peopleList = new ArrayList<>();
@@ -33,11 +32,15 @@ public class PeopleServiceImpl implements PeopleService {
             String row;
             while ((row = csvReader.readLine()) != null) {
                 People people = new People();
+                StringBuilder stringBuilder = new StringBuilder();
                 String[] data = row.split(",");
                 if (data[0].equals("name") || data[1].equals("url"))
                     continue;
-                people.setName(data[0]);
-                people.setUrl(data[1]);
+                for (int i = 0; i < data.length - 1; i++) {
+                    stringBuilder.append(data[i]);
+                }
+                people.setName(stringBuilder.toString());
+                people.setUrl(data[data.length - 1]);
                 peopleList.add(people);
             }
             csvReader.close();
@@ -50,20 +53,24 @@ public class PeopleServiceImpl implements PeopleService {
 
     @Override
     public void insertPeople(List<People> peopleList) {
-        peopleRepository.saveAll(peopleList);
+        try {
+            peopleRepository.saveAll(peopleList);
+        } catch (Exception E) {
+            System.out.println(E);
+        }
     }
 
     @Override
     public ResponseEntity<Map<String, Object>> getPeople(String name, int page, int size) {
         try {
             Pageable paging = PageRequest.of(page, size);
+            Map<String, Object> response = new HashMap<>();
             Page<People> peoplePage;
             if (name != null && !name.isEmpty()) {
                 peoplePage = this.getPeopleByName(name, paging);
             } else {
                 peoplePage = this.getAllPeople(paging);
             }
-            Map<String, Object> response = new HashMap<>();
             List<People> peopleList = peoplePage.getContent();
             response.put("peopleList", peopleList);
             response.put("currentPage", peoplePage.getNumber());

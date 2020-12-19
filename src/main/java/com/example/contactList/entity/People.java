@@ -5,11 +5,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 
-@Table(name = "People")
+@Table(name = "People", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "url"}))
 @Entity
 @Data
 @EnableAutoConfiguration
 public class People {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
