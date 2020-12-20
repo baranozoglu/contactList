@@ -1,41 +1,74 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="data" />
+    <Table />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-import axios from "axios";
+import Table from "./components/Table/Table";
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    Table,
   },
   data() {
     return {
-      data: null,
+      tableData: [
+        {
+          id: "1",
+          name: "Tom",
+          url: "No. 189, Grove St, Los Angeles",
+        },
+        {
+          id: "1",
+          name: "Tom",
+          url: "No. 189, Grove St, Los Angeles",
+        },
+        {
+          id: "1",
+          name: "Tom",
+          url: "No. 189, Grove St, Los Angeles",
+        },
+        {
+          id: "1",
+          name: "Tom",
+          url: "No. 189, Grove St, Los Angeles",
+        },
+      ],
     };
   },
   mounted() {
-    var header = {
-      "Cache-Control": "no-cache",
-      Pragma: "no-cache",
-      "Axios-Call": "true",
-      "Access-Control-Allow-Methods": "GET",
-    };
-    var params = {
-      csvName: "people",
-    };
-    var url = "http://localhost:8080/contactList/upload";
-    axios({
-      url: url,
-      method: "GET",
-      responseType: "blob",
-      data: params,
-      headers: header,
-    }).then((response) => (this.info = response.data.peopleList));
+    // var header = {
+    //   "Cache-Control": "no-cache",
+    //   Pragma: "no-cache",
+    //   "Axios-Call": "true",
+    //   "Referrer-Policy": "no-referrer",
+    //   "Access-Control-Allow-Methods": "GET",
+    //   "Access-Control-Allow-Origin": "*",
+    // };
+    // var paramsUpload = {
+    //   csvName: "people",
+    // };
+    // var paramsPeople = {
+    //   name: "",
+    //   page: null,
+    //   size: null,
+    // };
+    //var urlUpload = "http://localhost:8080/contactList/upload?csvName=people";
+    //var urlPeople = "http://localhost:8080/contactList/people";
+
+    // axios.get(urlUpload, { headers: header }).then((response) =>
+    //   (this.data = response.data.peopleList).catch(function(error) {
+    //     console.log('error :>> ', error);
+    //   })
+    // );
+    console.log("this.data :>> ", this.tableData);
+    // axios({
+    //   url: url,
+    //   method: "GET",
+    //   data: params,
+    //   headers: header,
+    // }).then((response) => (this.info = response.data.peopleList));
     // axios
     //     .get("http://localhost:8080/contactList/upload", config, params)
     //     .then((response) => (this.info = response))

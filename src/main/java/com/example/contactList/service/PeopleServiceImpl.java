@@ -52,12 +52,9 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
-    public void insertPeople(List<People> peopleList) {
-        try {
+    public ResponseEntity<Map<String, Object>> insertPeople(List<People> peopleList) {
             peopleRepository.saveAll(peopleList);
-        } catch (Exception E) {
-            System.out.println(E);
-        }
+            return this.getPeople("",0,10);
     }
 
     @Override

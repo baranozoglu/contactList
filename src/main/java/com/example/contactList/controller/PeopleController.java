@@ -22,12 +22,7 @@ public class PeopleController {
     @GetMapping(value = "/upload")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> uploadPeople(String csvName) {
-        try {
-            peopleService.insertPeople(peopleService.readCsv(csvName));
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception E) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return peopleService.insertPeople(peopleService.readCsv(csvName));
     }
 
     @GetMapping(value = "/people")

@@ -10,8 +10,8 @@ import java.util.Map;
 
 public interface PeopleService {
     List<People> readCsv(String csvName);
-    void insertPeople(List<People> peopleList);
-    Page<People> getPeopleByName(String name, Pageable paging);
     Page<People> getAllPeople(Pageable paging);
+    Page<People> getPeopleByName(String name, Pageable paging);
+    ResponseEntity<Map<String, Object>> insertPeople(List<People> peopleList);
     ResponseEntity<Map<String, Object>> getPeople(String name, int page, int size);
 }
