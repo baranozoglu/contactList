@@ -7,7 +7,8 @@
         layout="prev, pager, next"
         @current-change="handleCurrentChange"
         :page-size="pageSize"
-        :total="totalSize"
+        :total="totalItems"
+        :page-count="totalPages"
       >
       </el-pagination>
     </div>
@@ -27,20 +28,16 @@ export default {
     return {
       data: [],
       peopleList: [],
-      pageSize: null,
+      pageSize: 10,
       page: null,
-      totalSize: null,
-      input: null,
+      totalItems: null,
+      input: "",
     };
   },
   methods: {
     handleCurrentChange(val) {
-      this.page = val;
-    },
-  },
-  watch: {
-    input() {
-      console.log("this.input :>> ", this.input);
+      var thizz = this;
+      this.page = val - 1;
       var header = {
         "Cache-Control": "no-cache",
         Pragma: "no-cache",
@@ -50,10 +47,61 @@ export default {
         "Access-Control-Allow-Origin": "*",
       };
       axios
-        .get("http://localhost:8080/contactList/people?name=" + this.input, {
-          headers: header,
+        .get(
+          "http://localhost:8080/contactList/people?name=" +
+            this.input +
+            "&page=" +
+            this.page,
+          {
+            headers: header,
+          }
+        )
+        .then(function(response) {
+          thizz.peopleList = response.data.peopleList;
+          thizz.totalPages = response.data.totalPages;
+          thizz.page = response.data.currentPage;
+          thizz.totalItems = response.data.totalItems;
+          console.log("this.peopleList :>> ", thizz.peopleList);
+          console.log("this.totalPages :>> ", thizz.totalPages);
+          console.log("this.currentPage :>> ", thizz.page);
+          console.log("this.totalItems :>> ", thizz.totalItems);
         })
-        .then((response) => (this.peopleList = response.data.peopleList))
+        .catch(function(error) {
+          console.log("error :>> ", error);
+        });
+    },
+  },
+  watch: {
+    input() {
+      var thizz = this;
+      var header = {
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        "Axios-Call": "true",
+        "Referrer-Policy": "no-referrer",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Origin": "*",
+      };
+      axios
+        .get(
+          "http://localhost:8080/contactList/people?name=" +
+            this.input +
+            "&page=" +
+            this.page,
+          {
+            headers: header,
+          }
+        )
+        .then(function(response) {
+          thizz.peopleList = response.data.peopleList;
+          thizz.totalPages = response.data.totalPages;
+          thizz.page = response.data.currentPage;
+          thizz.totalItems = response.data.totalItems;
+          console.log("this.peopleList :>> ", thizz.peopleList);
+          console.log("this.totalPages :>> ", thizz.totalPages);
+          console.log("this.currentPage :>> ", thizz.page);
+          console.log("this.totalItems :>> ", thizz.totalItems);
+        })
         .catch(function(error) {
           console.log("error :>> ", error);
         });
@@ -68,45 +116,23 @@ export default {
       "Access-Control-Allow-Methods": "GET",
       "Access-Control-Allow-Origin": "*",
     };
-    // var paramsUpload = {
-    //   csvName: "people",
-    // };
-    // var paramsPeople = {
-    //   name: "",
-    //   page: null,
-    //   size: null,
-    // };
     var urlUpload = "http://localhost:8080/contactList/upload?csvName=people";
-    //var urlPeople = "http://localhost:8080/contactList/people";
-
+    var thizz = this;
     axios
       .get(urlUpload, { headers: header })
-      .then((response) => (this.peopleList = response.data.peopleList))
+      .then(function(response) {
+        thizz.peopleList = response.data.peopleList;
+        thizz.totalPages = response.data.totalPages;
+        thizz.page = response.data.currentPage;
+        thizz.totalItems = response.data.totalItems;
+        console.log("this.peopleList :>> ", thizz.peopleList);
+        console.log("this.totalPages :>> ", thizz.totalPages);
+        console.log("this.currentPage :>> ", thizz.page);
+        console.log("this.totalItems :>> ", thizz.totalItems);
+      })
       .catch(function(error) {
         console.log("error :>> ", error);
       });
-    // this.peopleList = response.data.peopleList;
-    // this.pageSize = response.data.totalPages;
-    // this.currentPage = response.data.currentPage;
-    // this.totalSize = response.data.totalSize;
-    // console.log("this.peopleList :>> ", this.peopleList);
-    // console.log("this.pageSize :>> ", this.pageSize);
-    // console.log("this.currentPage :>> ", this.currentPage);
-    // console.log("this.totalSize :>> ", this.totalSize);
-    // axios({
-    //   url: url,
-    //   method: "GET",
-    //   data: params,
-    //   headers: header,
-    // }).then((response) => (this.info = response.data.peopleList));
-    // axios
-    //     .get("http://localhost:8080/contactList/upload", config, params)
-    //     .then((response) => (this.info = response))
-    //     .then(
-    //       axios
-    //         .get("http://localhost:8080/contactList/people")
-    //         .then((response) => (this.info = response.data.peopleList))
-    //     );
   },
 };
 </script>
