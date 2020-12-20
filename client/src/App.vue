@@ -39,7 +39,7 @@ export default {
       data: [],
       peopleList: [],
       pageSize: 10,
-      page: null,
+      page: 0,
       totalItems: null,
       totalPages: null,
       input: "",
@@ -57,21 +57,6 @@ export default {
     handleCurrentChange(val) {
       this.page = val - 1;
       this.people();
-    },
-    upload() {
-      var thizz = this;
-      var urlUpload = "http://localhost:8080/contactList/upload?csvName=people";
-      axios
-        .get(urlUpload, { headers: this.header })
-        .then(function(response) {
-          thizz.peopleList = response.data.peopleList;
-          thizz.totalPages = response.data.totalPages;
-          thizz.page = response.data.currentPage;
-          thizz.totalItems = response.data.totalItems;
-        })
-        .catch(function(error) {
-          console.log("error :>> ", error);
-        });
     },
     people() {
       var thizz = this;
@@ -102,7 +87,7 @@ export default {
     },
   },
   mounted() {
-    this.upload();
+    this.people();
   },
 };
 </script>
