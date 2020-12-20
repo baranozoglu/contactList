@@ -1,18 +1,28 @@
 <template>
-  <div id="app">
-    <el-input placeholder="Search Name" v-model="input" clearable> </el-input>
-    <Table :data="peopleList" />
-    <div class="block">
-      <el-pagination
-        layout="prev, pager, next"
-        @current-change="handleCurrentChange"
-        :page-size="pageSize"
-        :total="totalItems"
-        :page-count="totalPages"
-      >
-      </el-pagination>
-    </div>
-  </div>
+  <el-row :justify="center" :type="flex">
+    <el-col :xs="{ span: 24 }" :md="{ span: 12, offset: 6 }">
+      <h1 style="text-align: center">Contact List</h1>
+      <el-input placeholder="Search Name" v-model="input" clearable> </el-input>
+    </el-col>
+    <el-col :xs="{ span: 24 }" :md="{ span: 12, offset: 6 }">
+      <div id="app">
+        <Table :data="peopleList" />
+      </div>
+    </el-col>
+    <el-col :xs="{ span: 24 }" :md="{ span: 12, offset: 6 }">
+      <div class="block" text-align="center">
+        <el-pagination
+          id="pagination"
+          layout="prev, pager, next"
+          @current-change="handleCurrentChange"
+          :page-size="pageSize"
+          :total="totalItems"
+          :page-count="totalPages"
+        >
+        </el-pagination>
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -101,8 +111,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#pagination {
+  text-align: center;
 }
 </style>
