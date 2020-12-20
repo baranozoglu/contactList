@@ -1,5 +1,5 @@
 <template>
-  <el-row :justify="center" :type="flex">
+  <el-row>
     <el-col :xs="{ span: 24 }" :md="{ span: 12, offset: 6 }">
       <h1 style="text-align: center">Contact List</h1>
       <el-input placeholder="Search Name" v-model="input" clearable> </el-input>
@@ -41,6 +41,7 @@ export default {
       pageSize: 10,
       page: null,
       totalItems: null,
+      totalPages: null,
       input: "",
       header: {
         "Cache-Control": "no-cache",
