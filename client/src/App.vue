@@ -74,6 +74,7 @@ export default {
   watch: {
     input() {
       var thizz = this;
+      this.page = 0;
       var header = {
         "Cache-Control": "no-cache",
         Pragma: "no-cache",
