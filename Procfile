@@ -1,1 +1,1 @@
-web: npm run build
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/*.jar & cd client & npm run build
