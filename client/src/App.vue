@@ -32,39 +32,52 @@ export default {
       page: null,
       totalItems: null,
       input: "",
-    };
-  },
-  methods: {
-    handleCurrentChange(val) {
-      var thizz = this;
-      this.page = val - 1;
-      var header = {
+      header: {
         "Cache-Control": "no-cache",
         Pragma: "no-cache",
         "Axios-Call": "true",
         "Referrer-Policy": "no-referrer",
         "Access-Control-Allow-Methods": "GET",
         "Access-Control-Allow-Origin": "*",
-      };
+      },
+    };
+  },
+  methods: {
+    handleCurrentChange(val) {
+      this.page = val - 1;
+      this.people();
+    },
+    upload() {
+      var thizz = this;
+      var urlUpload = "http://localhost:8080/contactList/upload?csvName=people";
       axios
-        .get(
-          "http://localhost:8080/contactList/people?name=" +
-            this.input +
-            "&page=" +
-            this.page,
-          {
-            headers: header,
-          }
-        )
+        .get(urlUpload, { headers: this.header })
         .then(function(response) {
           thizz.peopleList = response.data.peopleList;
           thizz.totalPages = response.data.totalPages;
           thizz.page = response.data.currentPage;
           thizz.totalItems = response.data.totalItems;
-          console.log("this.peopleList :>> ", thizz.peopleList);
-          console.log("this.totalPages :>> ", thizz.totalPages);
-          console.log("this.currentPage :>> ", thizz.page);
-          console.log("this.totalItems :>> ", thizz.totalItems);
+        })
+        .catch(function(error) {
+          console.log("error :>> ", error);
+        });
+    },
+    people() {
+      var thizz = this;
+      var url =
+        "http://localhost:8080/contactList/people?name=" +
+        this.input +
+        "&page=" +
+        this.page;
+      axios
+        .get(url, {
+          headers: this.header,
+        })
+        .then(function(response) {
+          thizz.peopleList = response.data.peopleList;
+          thizz.totalPages = response.data.totalPages;
+          thizz.page = response.data.currentPage;
+          thizz.totalItems = response.data.totalItems;
         })
         .catch(function(error) {
           console.log("error :>> ", error);
@@ -73,67 +86,12 @@ export default {
   },
   watch: {
     input() {
-      var thizz = this;
       this.page = 0;
-      var header = {
-        "Cache-Control": "no-cache",
-        Pragma: "no-cache",
-        "Axios-Call": "true",
-        "Referrer-Policy": "no-referrer",
-        "Access-Control-Allow-Methods": "GET",
-        "Access-Control-Allow-Origin": "*",
-      };
-      axios
-        .get(
-          "http://localhost:8080/contactList/people?name=" +
-            this.input +
-            "&page=" +
-            this.page,
-          {
-            headers: header,
-          }
-        )
-        .then(function(response) {
-          thizz.peopleList = response.data.peopleList;
-          thizz.totalPages = response.data.totalPages;
-          thizz.page = response.data.currentPage;
-          thizz.totalItems = response.data.totalItems;
-          console.log("this.peopleList :>> ", thizz.peopleList);
-          console.log("this.totalPages :>> ", thizz.totalPages);
-          console.log("this.currentPage :>> ", thizz.page);
-          console.log("this.totalItems :>> ", thizz.totalItems);
-        })
-        .catch(function(error) {
-          console.log("error :>> ", error);
-        });
+      this.people();
     },
   },
   mounted() {
-    var header = {
-      "Cache-Control": "no-cache",
-      Pragma: "no-cache",
-      "Axios-Call": "true",
-      "Referrer-Policy": "no-referrer",
-      "Access-Control-Allow-Methods": "GET",
-      "Access-Control-Allow-Origin": "*",
-    };
-    var urlUpload = "http://localhost:8080/contactList/upload?csvName=people";
-    var thizz = this;
-    axios
-      .get(urlUpload, { headers: header })
-      .then(function(response) {
-        thizz.peopleList = response.data.peopleList;
-        thizz.totalPages = response.data.totalPages;
-        thizz.page = response.data.currentPage;
-        thizz.totalItems = response.data.totalItems;
-        console.log("this.peopleList :>> ", thizz.peopleList);
-        console.log("this.totalPages :>> ", thizz.totalPages);
-        console.log("this.currentPage :>> ", thizz.page);
-        console.log("this.totalItems :>> ", thizz.totalItems);
-      })
-      .catch(function(error) {
-        console.log("error :>> ", error);
-      });
+    this.upload();
   },
 };
 </script>
