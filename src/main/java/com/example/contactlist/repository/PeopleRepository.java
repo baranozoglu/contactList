@@ -1,6 +1,6 @@
-package com.example.contactList.repository;
+package com.example.contactlist.repository;
 
-import com.example.contactList.entity.People;
+import com.example.contactlist.entity.People;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

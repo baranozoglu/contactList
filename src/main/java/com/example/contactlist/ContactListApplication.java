@@ -1,6 +1,6 @@
-package com.example.contactList;
+package com.example.contactlist;
 
-import com.example.contactList.controller.UploadDataController;
+import com.example.contactlist.controller.UploadDataController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ public class ContactListApplication {
 	}
 
 	@Bean
-	public CommandLineRunner Upload(UploadDataController uploadController) {
+	public CommandLineRunner upload(UploadDataController uploadController) {
 		return args->{uploadController.uploadPeople("people");};
 	}
 }

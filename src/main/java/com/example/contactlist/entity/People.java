@@ -1,4 +1,4 @@
-package com.example.contactList.entity;
+package com.example.contactlist.entity;
 
 import lombok.Data;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

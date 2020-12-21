@@ -70,7 +70,7 @@ export default {
           headers: this.header,
         })
         .then(function(response) {
-          thizz.peopleList = response.data.peopleList;
+          thizz.peopleList = response.data.dataList;
           thizz.totalPages = response.data.totalPages;
           thizz.page = response.data.currentPage;
           thizz.totalItems = response.data.totalItems;

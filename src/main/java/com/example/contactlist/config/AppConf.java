@@ -1,4 +1,4 @@
-package com.example.contactList.config;
+package com.example.contactlist.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

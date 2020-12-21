@@ -1,7 +1,8 @@
-package com.example.contactList.service;
+package com.example.contactlist.service;
 
-import com.example.contactList.entity.People;
-import com.example.contactList.repository.PeopleRepository;
+import com.example.contactlist.dto.PageableDto;
+import com.example.contactlist.entity.People;
+import com.example.contactlist.repository.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,23 +21,19 @@ public class GetDataServiceImpl implements GetDataService {
     private PeopleRepository peopleRepository;
 
     @Override
-    public ResponseEntity<Map<String, Object>> getPeople(String name, int page, int size) {
+    public ResponseEntity<PageableDto<People>> getPeople(String name, int page, int size) {
         try {
             Pageable paging = PageRequest.of(page, size);
-            Map<String, Object> response = new HashMap<>();
             Page<People> peoplePage;
-            if (name != null && !name.isEmpty()) {
-                peoplePage = this.getPeopleByName(name, paging);
-            } else {
-                peoplePage = this.getAllPeople(paging);
-            }
-            List<People> peopleList = peoplePage.getContent();
-            response.put("peopleList", peopleList);
-            response.put("currentPage", peoplePage.getNumber());
-            response.put("totalItems", peoplePage.getTotalElements());
-            response.put("totalPages", peoplePage.getTotalPages());
+            peoplePage = this.getPeopleByName(name == null ? name = "" : name, paging);
 
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            PageableDto<People> peoplePageableDto = new PageableDto<>();
+            peoplePageableDto.setDataList(peoplePage.getContent());
+            peoplePageableDto.setCurrentPage(peoplePage.getNumber());
+            peoplePageableDto.setTotalItems(peoplePage.getTotalElements());
+            peoplePageableDto.setTotalPages(peoplePage.getTotalPages());
+
+            return new ResponseEntity<>(peoplePageableDto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

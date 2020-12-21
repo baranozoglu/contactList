@@ -1,6 +1,8 @@
-package com.example.contactList.controller;
+package com.example.contactlist.controller;
 
-import com.example.contactList.service.UploadDataService;
+import com.example.contactlist.dto.PageableDto;
+import com.example.contactlist.entity.People;
+import com.example.contactlist.service.UploadDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,7 @@ public class UploadDataController {
 
     @GetMapping(value = "/upload")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> uploadPeople(String csvName) {
+    public ResponseEntity<PageableDto<People>> uploadPeople(String csvName) {
         return uploadService.insertPeople(uploadService.readCsv(csvName));
     }
 }

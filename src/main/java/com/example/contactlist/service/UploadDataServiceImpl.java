@@ -1,7 +1,8 @@
-package com.example.contactList.service;
+package com.example.contactlist.service;
 
-import com.example.contactList.entity.People;
-import com.example.contactList.repository.PeopleRepository;
+import com.example.contactlist.dto.PageableDto;
+import com.example.contactlist.entity.People;
+import com.example.contactlist.repository.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class UploadDataServiceImpl implements UploadDataService {
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> insertPeople(List<People> peopleList) {
+    public ResponseEntity<PageableDto<People>> insertPeople(List<People> peopleList) {
             peopleRepository.saveAll(peopleList);
             return dataService.getPeople("",0,10);
     }
