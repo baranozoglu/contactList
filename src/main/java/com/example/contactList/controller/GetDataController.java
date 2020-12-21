@@ -1,6 +1,6 @@
 package com.example.contactList.controller;
 
-import com.example.contactList.service.DataService;
+import com.example.contactList.service.GetDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,10 +13,10 @@ import java.util.Map;
 
 @Controller
 @RequestMapping
-public class DataController {
+public class GetDataController {
 
     @Autowired
-    private DataService peopleService;
+    private GetDataService peopleService;
 
     @GetMapping(value = "/people")
     @ResponseBody

@@ -14,11 +14,11 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 @Service
-public class UploadServiceImpl implements UploadService {
+public class UploadDataServiceImpl implements UploadDataService {
     @Autowired
     private PeopleRepository peopleRepository;
     @Autowired
-    private DataService dataService;
+    private GetDataService dataService;
 
     @Transactional
     @Override

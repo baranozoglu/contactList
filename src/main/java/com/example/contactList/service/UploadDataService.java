@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Map;
 
-public interface UploadService {
+public interface UploadDataService {
     List<People> readCsv(String csvName);
     ResponseEntity<Map<String, Object>> insertPeople(List<People> peopleList);
 }

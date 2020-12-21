@@ -1,8 +1,6 @@
 package com.example.contactList;
 
-import com.example.contactList.controller.UploadController;
-import com.example.contactList.service.UploadService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.contactList.controller.UploadDataController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +14,7 @@ public class ContactListApplication {
 	}
 
 	@Bean
-	public CommandLineRunner Upload(UploadController uploadController) {
+	public CommandLineRunner Upload(UploadDataController uploadController) {
 		return args->{uploadController.uploadPeople("people");};
 	}
 }
