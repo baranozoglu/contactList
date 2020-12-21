@@ -10,7 +10,7 @@ public class AppConf implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://baran.webdeniz.com")
+                .allowedOrigins("*")
                 .allowedMethods("GET");
     }
 }
