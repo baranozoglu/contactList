@@ -25,15 +25,15 @@ API/back-end side that the client communicates with is hosted on heroku: https:/
 
 ### API
 
-**GET /people?name="Homer"&page=1&size=10** -- Retrieve people by given name and pagination parameters.
+**GET /people?name="Homer"&page=0&size=10** -- Retrieve people by given name and pagination parameters.
 
 Query Parameters:
 
-	name (Optional): Retrieve people with given name, Default value = all people
+	name (Optional): Retrieve people with given name. Default value = "", return all people.
 
-	page (Optional): Retrieve results of given page value. Default value = 1
+	page (Optional): Retrieve results of given page value. Default value = 0, return first page.
 
-	size (Optional): Set each page size. Default value = 10
+	size (Optional): Set each page size. Default value = 10, return 10 results each page.
 
 
 **GET /upload?csvName=people'** -- Populates the database initially with the data in the given file.
