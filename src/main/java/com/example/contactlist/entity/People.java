@@ -21,4 +21,14 @@ public class People {
 
     @Column(name = "url")
     private String url;
+
+    public People() {
+
+    }
+
+    public People(Long id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
 }

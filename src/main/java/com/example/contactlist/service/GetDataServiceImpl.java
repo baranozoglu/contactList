@@ -25,7 +25,7 @@ public class GetDataServiceImpl implements GetDataService {
         try {
             Pageable paging = PageRequest.of(page, size);
             Page<People> peoplePage;
-            peoplePage = this.getPeopleByName(name == null ? name = "" : name, paging);
+            peoplePage = this.getPeopleByName(name == null ? "" : name, paging);
 
             PageableDto<People> peoplePageableDto = new PageableDto<>();
             peoplePageableDto.setDataList(peoplePage.getContent());

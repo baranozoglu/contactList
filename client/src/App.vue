@@ -103,4 +103,7 @@ export default {
 #pagination {
   text-align: center;
 }
+body {
+  background-color: rgb(240, 238, 238);
+}
 </style>

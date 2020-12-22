@@ -1,9 +1,9 @@
 <template>
   <el-table :data="data" style="width: 100%" >
     <el-table-column prop="id" label="ID"> </el-table-column>
-    <el-table-column prop="url" label="Image" max-height="150px">
+    <el-table-column prop="url" label="Image">
       <template slot-scope="scope">
-        <img :src="scope.row.url" />
+        <img :src="scope.row.url" style="max-height: 150px"/>
       </template>
     </el-table-column>
     <el-table-column prop="name" label="Name"> </el-table-column>
@@ -21,6 +21,11 @@ export default {
     data: {
       type: Array,
       required: false,
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 150,
     },
   },
 };
