@@ -3,6 +3,8 @@ package com.example.contactlist.service;
 import com.example.contactlist.dto.PageableDto;
 import com.example.contactlist.entity.People;
 import com.example.contactlist.repository.PeopleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +18,22 @@ import java.util.*;
 
 @Service
 public class UploadDataServiceImpl implements UploadDataService {
+
     @Autowired
     private PeopleRepository peopleRepository;
+
     @Autowired
     private GetDataService dataService;
+
+    private Logger logger = LoggerFactory.getLogger(UploadDataServiceImpl.class);
 
     @Transactional
     @Override
     public List<People> readCsv(String csvName) {
         List<People> peopleList = new ArrayList<>();
-        try {
-            InputStream resource = new ClassPathResource("data/" + csvName + ".csv").getInputStream();
-            BufferedReader csvReader = new BufferedReader(new InputStreamReader(resource));
+        //bufferedReader and inputStream are closed with try-with-resources automatically
+        try (InputStream resource = new ClassPathResource("data/" + csvName.replaceAll("[^a-zA-Z0-9]", "")  + ".csv").getInputStream();
+             BufferedReader csvReader = new BufferedReader(new InputStreamReader(resource))) {
             String row;
             while ((row = csvReader.readLine()) != null) {
                 People people = new People();
@@ -42,17 +48,16 @@ public class UploadDataServiceImpl implements UploadDataService {
                 people.setUrl(data[data.length - 1]);
                 peopleList.add(people);
             }
-            csvReader.close();
             return peopleList;
         } catch (Exception e) {
-            System.out.println("Something went wrong: " + e);
+            logger.error(String.format("Something went wrong: %s", e ));
             return peopleList;
         }
     }
 
     @Override
     public ResponseEntity<PageableDto<People>> insertPeople(List<People> peopleList) {
-            peopleRepository.saveAll(peopleList);
-            return dataService.getPeople("",0,10);
+        peopleRepository.saveAll(peopleList);
+        return dataService.getPeople("", 0, 10);
     }
 }

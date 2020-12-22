@@ -15,6 +15,6 @@ public class ContactListApplication {
 
 	@Bean
 	public CommandLineRunner upload(UploadDataController uploadController) {
-		return args->{uploadController.uploadPeople("people");};
+		return args->uploadController.uploadPeople("people");
 	}
 }

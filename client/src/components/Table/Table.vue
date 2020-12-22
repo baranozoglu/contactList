@@ -22,11 +22,6 @@ export default {
       type: Array,
       required: false,
     },
-    size: {
-      type: Number,
-      required: false,
-      default: 150,
-    },
   },
 };
 </script>

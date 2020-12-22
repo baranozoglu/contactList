@@ -48,8 +48,6 @@ export default {
         Pragma: "no-cache",
         "Axios-Call": "true",
         "Referrer-Policy": "no-referrer",
-        "Access-Control-Allow-Methods": "GET",
-        "Access-Control-Allow-Origin": "*",
       },
     };
   },
@@ -61,13 +59,10 @@ export default {
     people() {
       var thizz = this;
       var url =
-        "http://localhost:8080/contactList/people?name=" +
-        this.input +
-        "&page=" +
-        this.page;
+        "http://localhost:8080/contactList/people"
       axios
         .get(url, {
-          headers: this.header,
+          headers: this.header, params: {name: this.input, page: this.page}
         })
         .then(function(response) {
           thizz.peopleList = response.data.dataList;

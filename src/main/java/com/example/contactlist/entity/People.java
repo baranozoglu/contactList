@@ -1,14 +1,12 @@
 package com.example.contactlist.entity;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 
 @Table(name = "People", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "url"}))
 @Entity
 @Data
-@EnableAutoConfiguration
 public class People {
 
     @Id
@@ -22,13 +20,4 @@ public class People {
     @Column(name = "url")
     private String url;
 
-    public People() {
-
-    }
-
-    public People(Long id, String name, String url) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
 }

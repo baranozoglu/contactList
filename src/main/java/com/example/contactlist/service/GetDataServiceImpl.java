@@ -11,12 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Service
 public class GetDataServiceImpl implements GetDataService {
+
     @Autowired
     private PeopleRepository peopleRepository;
 
@@ -42,11 +39,6 @@ public class GetDataServiceImpl implements GetDataService {
     @Override
     public Page<People> getPeopleByName(String name, Pageable paging) {
         return peopleRepository.findByName(name, paging);
-    }
-
-    @Override
-    public Page<People> getAllPeople(Pageable paging) {
-        return peopleRepository.findAll(paging);
     }
 
 }

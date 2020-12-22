@@ -5,7 +5,6 @@ import com.example.contactlist.entity.People;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UploadDataService {
     List<People> readCsv(String csvName);
