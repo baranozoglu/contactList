@@ -59,4 +59,4 @@ On the persistance layer, relational database H2 is used by embedding it into ap
 * Front-end: Vue.js
 * Database: H2 DB
 * Build System: Maven
-* **Testing Library:** 
+* Testing Library: Junit
