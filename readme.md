@@ -53,6 +53,8 @@ Client side application is written with Vue.js. Table component used for listing
 
 On the persistance layer, relational database H2 is used by embedding it into application. 
 
+Unit tests are written by using MockMvc and JUnit to test endpoints and controllers.
+
 ### Stack
 
 * Back-end: Spring Boot
