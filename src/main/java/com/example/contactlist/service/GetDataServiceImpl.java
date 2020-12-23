@@ -24,6 +24,7 @@ public class GetDataServiceImpl implements GetDataService {
             Page<People> peoplePage;
             peoplePage = this.getPeopleByName(name == null ? "" : name, paging);
 
+            //using generic pageableDto to create with new entities
             PageableDto<People> peoplePageableDto = new PageableDto<>();
             peoplePageableDto.setDataList(peoplePage.getContent());
             peoplePageableDto.setCurrentPage(peoplePage.getNumber());

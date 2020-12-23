@@ -25,6 +25,7 @@ public class UploadDataServiceImpl implements UploadDataService {
     @Autowired
     private GetDataService dataService;
 
+    //logging import
     private Logger logger = LoggerFactory.getLogger(UploadDataServiceImpl.class);
 
     @Transactional
@@ -39,8 +40,10 @@ public class UploadDataServiceImpl implements UploadDataService {
                 People people = new People();
                 StringBuilder stringBuilder = new StringBuilder();
                 String[] data = row.split(",");
+                //first row is the title which will not insert db
                 if (data[0].equals("name") || data[1].equals("url"))
                     continue;
+                //concat strings before last comma as name
                 for (int i = 0; i < data.length - 1; i++) {
                     stringBuilder.append(data[i]);
                 }
@@ -58,6 +61,7 @@ public class UploadDataServiceImpl implements UploadDataService {
     @Override
     public ResponseEntity<PageableDto<People>> insertPeople(List<People> peopleList) {
         peopleRepository.saveAll(peopleList);
+        //after insert data call getPeople method to show data on the screen
         return dataService.getPeople("", 0, 10);
     }
 }

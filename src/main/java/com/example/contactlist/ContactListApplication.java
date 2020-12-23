@@ -13,6 +13,7 @@ public class ContactListApplication {
 		SpringApplication.run(ContactListApplication.class, args);
 	}
 
+	//run uploadPeople service after server start
 	@Bean
 	public CommandLineRunner upload(UploadDataController uploadController) {
 		return args->uploadController.uploadPeople("people");
