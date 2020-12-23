@@ -6,7 +6,7 @@
     </el-col>
     <el-col :xs="{ span: 24 }" :md="{ span: 12, offset: 6 }">
       <div id="app">
-        <Table :data="peopleList" />
+        <Table :data="peopleList" :loading="loading"/>
       </div>
     </el-col>
     <el-col :xs="{ span: 24 }" :md="{ span: 12, offset: 6 }">
@@ -43,6 +43,7 @@ export default {
       totalItems: null,
       totalPages: null,
       input: "",
+      loading: true,
       header: {
         "Cache-Control": "no-cache",
         Pragma: "no-cache",
@@ -69,6 +70,7 @@ export default {
           thizz.totalPages = response.data.totalPages;
           thizz.page = response.data.currentPage;
           thizz.totalItems = response.data.totalItems;
+          thizz.loading = false;          
         })
         .catch(function(error) {
           console.log("error :>> ", error);
@@ -78,6 +80,7 @@ export default {
   watch: {
     input() {
       this.page = 0;
+      this.loading = true;
       this.people();
     },
   },
